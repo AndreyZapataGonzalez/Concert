@@ -77,17 +77,12 @@ namespace Concert.Migrations
             modelBuilder.Entity("Concert.Data.Entities.Ticket", b =>
                 {
                     b.HasOne("Concert.Data.Entities.Entrance", "Entrance")
-                        .WithMany("Tickets")
+                        .WithMany()
                         .HasForeignKey("EntranceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Entrance");
-                });
-
-            modelBuilder.Entity("Concert.Data.Entities.Entrance", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
