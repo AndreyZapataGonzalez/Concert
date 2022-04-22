@@ -24,6 +24,9 @@ namespace Concert.Data.Entities
 
         public Entrance Entrance { get; set; }
 
-        public DateTime Date { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
+        [Required(AllowEmptyStrings = true)]
+        [Display(Name = "Fecha Uso")]
+        public DateTime? Date { get; set; }
     }
 }

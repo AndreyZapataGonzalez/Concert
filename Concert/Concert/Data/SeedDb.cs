@@ -40,7 +40,14 @@ namespace Concert.Data
                 for (int i = 0; i<5000; i++)
                 {
                     //No permite nulos en document pendiente revisar
-                    _context.Tickets.Add(new Ticket { WasUsed = false, Document = "", Name="" });
+                    _context.Tickets.Add(new Ticket 
+                    { 
+                        WasUsed = false, 
+                        Document = "", 
+                        Name="", 
+                        Entrance = new Entrance {Description ="Default" },
+                        Date = null
+                    });
                 }
                 await _context.SaveChangesAsync();
             }
