@@ -136,6 +136,52 @@ namespace Concert.Controllers
             return View();
         }
 
+
+        public IActionResult Process()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Process(int id,Ticket ticket)
+        {
+            if (id != ticket.Id)
+            {
+                return NotFound();
+            }
+
+            ticket.Id = id;
+            ticket.WasUsed = true;
+            ticket.Date = DateTime.Now;
+            ticket.Entrance = new Entrance {Description ="Norte" };
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(ticket);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TicketExists(ticket.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(ticket);
+
+        }
+
+
+
         // POST: Tickets/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
